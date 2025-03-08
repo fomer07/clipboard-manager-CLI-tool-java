@@ -1,6 +1,5 @@
 package com.example;
 
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -65,6 +64,7 @@ public class Main {
         System.out.println("2️⃣ View clipboard history");
         System.out.println("3️⃣ Restore clipboard entry");
         System.out.println("4️⃣ Search clipboard history 🔍");
+        System.out.println("5️⃣ Clear clipboard history 🗑️");
         System.out.print("> ");
 
         int choice = scanner.nextInt();
@@ -89,7 +89,16 @@ public class Main {
             System.out.print("Enter a keyword to search: ");
             String keyword = scanner.nextLine();
             DatabaseManager.searchClipboardHistory(keyword);
+        } else if (choice == 5) {
+            System.out.print("⚠️ Are you sure? This will delete all entries! (yes/no): ");
+            String confirmation = scanner.nextLine();
+            if (confirmation.equalsIgnoreCase("yes")) {
+                DatabaseManager.clearClipboardHistory();
+            } else {
+                System.out.println("❌ Cancelled.");
+            }
         }
+
         else {
             System.out.println("❌ Invalid choice!");
         }

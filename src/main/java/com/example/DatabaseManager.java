@@ -77,5 +77,19 @@ public class DatabaseManager {
         }
     }
 
+    public static void clearClipboardHistory() {
+        String deleteSQL = "DELETE FROM clipboard_history";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+
+            int rowsAffected = stmt.executeUpdate(deleteSQL);
+            System.out.println("🗑️ Clipboard history cleared! (" + rowsAffected + " entries deleted)");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
