@@ -65,6 +65,7 @@ public class Main {
         System.out.println("3️⃣ Restore clipboard entry");
         System.out.println("4️⃣ Search clipboard history 🔍");
         System.out.println("5️⃣ Clear clipboard history 🗑️");
+        System.out.println("6️⃣ Delete a specific entry ❌");
         System.out.print("> ");
 
         int choice = scanner.nextInt();
@@ -97,8 +98,12 @@ public class Main {
             } else {
                 System.out.println("❌ Cancelled.");
             }
+        } else if (choice == 6) {
+            DatabaseManager.getClipboardHistory(); // Show history first
+            System.out.print("Enter the ID of the entry to delete: ");
+            int id = scanner.nextInt();
+            DatabaseManager.deleteClipboardEntry(id);
         }
-
         else {
             System.out.println("❌ Invalid choice!");
         }

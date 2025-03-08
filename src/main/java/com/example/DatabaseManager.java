@@ -90,6 +90,25 @@ public class DatabaseManager {
         }
     }
 
+    public static void deleteClipboardEntry(int id) {
+        String deleteSQL = "DELETE FROM clipboard_history WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
+
+            pstmt.setInt(1, id);
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("🗑️ Entry " + id + " deleted!");
+            } else {
+                System.out.println("❌ No entry found with ID: " + id);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
