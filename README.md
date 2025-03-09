@@ -68,6 +68,11 @@ sudo mv ~/clipboard-cli /usr/local/bin/clipboard-cli
 
 ### Step 6: Open your terminal and test it 
 
+ ```bash
+  clipboard-cli
+  ```
+
+## How to use it
 
 - **View Clipboard History**:
 
