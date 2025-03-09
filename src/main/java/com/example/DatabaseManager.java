@@ -2,6 +2,8 @@ package com.example;
 
 import java.sql.*;
 
+import static com.example.Utils.setClipboardContents;
+
 public class DatabaseManager {
 
     private static final String DB_URL = "jdbc:sqlite:clipboard_history.db";
@@ -29,6 +31,26 @@ public class DatabaseManager {
             pstmt.setString(1,text);
             pstmt.executeUpdate();
         }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void restoreClipboardEntry(int id) {
+        String querySQL = "SELECT text FROM clipboard_history WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(querySQL)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String text = rs.getString("text");
+                setClipboardContents(text);
+                System.out.println("✅ Restored to clipboard: " + text);
+            } else {
+                System.out.println("❌ Entry not found!");
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -108,7 +130,5 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
-
 
 }
